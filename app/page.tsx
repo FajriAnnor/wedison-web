@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArticleCard, ProductCard, StoryCard } from "@/components/cards";
 import ChargingVisual from "@/components/ChargingVisual";
+import HeroSlider from "@/components/HeroSlider";
 import TcoCalculator from "@/components/TcoCalculator";
 import PlaceholderArt from "@/components/ui/PlaceholderArt";
 import Visual from "@/components/ui/Visual";
@@ -73,13 +74,7 @@ function Hero() {
           </p>
           <p className="mt-6 text-xs text-white/40">*Charging conditions apply and are published with the claim.</p>
         </div>
-        <Visual
-          kind="motorcycle"
-          src={h.media.src}
-          alt={h.media.alt[locale]}
-          className="aspect-[4/3] rounded-3xl border border-white/10"
-          priority
-        />
+        <HeroSlider />
       </div>
     </section>
   );
