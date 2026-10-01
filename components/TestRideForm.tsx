@@ -11,7 +11,7 @@ import {
   type TestRideLead,
   type UtmParams,
 } from "../lib/mockData";
-import { CtaButton, ctaClass } from "./ui/common";
+import { CtaButton, conversionCtaClass } from "./ui/common";
 
 const locale = DEFAULT_LOCALE;
 const field =
@@ -106,7 +106,7 @@ export default function TestRideForm() {
           Local prototype: nothing was sent. The lead payload is printed to the browser console in a CRM-ready shape.
         </p>
         <div className="mt-6 flex flex-wrap gap-4">
-          <button type="button" onClick={() => setLead(null)} className={ctaClass}>
+          <button type="button" onClick={() => setLead(null)} className={conversionCtaClass}>
             New request
           </button>
           <CtaButton href="/motorcycles">Explore Models</CtaButton>
@@ -210,7 +210,7 @@ export default function TestRideForm() {
       </label>
 
       <div className="sm:col-span-2">
-        <button type="submit" className={ctaClass}>
+        <button type="submit" className={conversionCtaClass}>
           10. Book a Test Ride
         </button>
         <p className="mt-3 text-xs text-foreground/50">Local prototype: no data leaves your browser.</p>

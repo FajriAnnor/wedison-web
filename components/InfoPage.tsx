@@ -18,7 +18,7 @@ import PageHero from "./PageHero";
 import ChargingVisual from "./ChargingVisual";
 import ContactForm from "./ContactForm";
 import { ArticleCard, StoryCard } from "./cards";
-import PlaceholderArt from "./ui/PlaceholderArt";
+import Visual from "./ui/Visual";
 import { CtaButton, GhostButton, SectionHeading } from "./ui/common";
 
 const locale = DEFAULT_LOCALE;
@@ -30,6 +30,29 @@ const BUSINESS_HREF: Record<string, string> = {
   corporate: "/corporate",
   dealer: "/dealer-partnership",
   "charging-partner": "/charging-partnership",
+};
+
+const HERO_IMAGES: Partial<Record<string, { src: string; alt: string }>> = {
+  technology: {
+    src: "/images/wedison/technology/supercharge-technology.webp",
+    alt: "WEDISON SuperCharge station technology",
+  },
+  supercharge: {
+    src: "/images/wedison/supercharge/supercharge-station-hero.webp",
+    alt: "WEDISON SuperCharge station",
+  },
+  "charging-guide": {
+    src: "/images/wedison/supercharge/edpower-supercharge.webp",
+    alt: "WEDISON EDPower connected to a SuperCharge station",
+  },
+  "charging-partnership": {
+    src: "/images/wedison/supercharge/supercharge-network.webp",
+    alt: "WEDISON motorcycles and SuperCharge network",
+  },
+  "dealer-partnership": {
+    src: "/images/wedison/showroom/showroom-reception.webp",
+    alt: "WEDISON showroom reception",
+  },
 };
 
 const CONDITION_LABEL: Record<string, string> = {
@@ -78,6 +101,7 @@ export default function InfoPage({ page }: { page: SitePage }) {
         primary={page.primary}
         secondary={page.secondary}
         crumbs={[...(page.crumbs ?? []), { label: page.title }]}
+        image={HERO_IMAGES[page.slug]}
       />
 
       {page.sections?.map((s) => (
@@ -230,7 +254,13 @@ export default function InfoPage({ page }: { page: SitePage }) {
               <li key={b.id} className="overflow-hidden rounded-3xl border border-black/10 dark:border-white/10">
                 <Link href={BUSINESS_HREF[b.id] ?? "/business"} className="block">
                   <div className="aspect-[16/9]">
-                    <PlaceholderArt kind="business" caption={false} />
+                    <Visual
+                      kind="business"
+                      src={b.image.src}
+                      alt={b.image.alt[locale]}
+                      className="h-full w-full"
+                      caption={false}
+                    />
                   </div>
                   <div className="p-6">
                     <h3 className="text-lg font-bold">{b.title[locale]}</h3>

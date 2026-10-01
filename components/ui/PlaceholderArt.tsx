@@ -162,7 +162,7 @@ export default function PlaceholderArt({
     <div
       role="img"
       aria-label={`Illustrative placeholder: ${kind}`}
-      className={`relative h-full w-full overflow-hidden bg-[radial-gradient(ellipse_at_30%_20%,#30363c_0%,#1a1e22_55%,#101315_100%)] ${className}`}
+      className={`relative h-full w-full overflow-hidden bg-[radial-gradient(ellipse_at_30%_20%,#282d2a_0%,#1a1f1c_55%,#111513_100%)] ${className}`}
     >
       <svg viewBox="0 0 400 240" className="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid meet" aria-hidden>
         <Art />

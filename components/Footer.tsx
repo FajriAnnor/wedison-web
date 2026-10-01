@@ -12,7 +12,7 @@ const locale = DEFAULT_LOCALE;
 
 export default function Footer() {
   return (
-    <footer className="mt-auto border-t border-black/10 bg-foreground/[0.03] dark:border-white/10">
+    <footer className="mt-auto border-t border-black/10 bg-wedison-soft dark:border-white/10">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="mb-10 max-w-md">
           <p className="text-xl font-extrabold tracking-widest">{siteConfig.name}</p>
@@ -30,7 +30,7 @@ export default function Footer() {
                   <li key={`${group.id}-${link.href}-${link.label.en}`}>
                     <Link
                       href={link.href}
-                      className="text-sm text-foreground/70 transition-colors hover:text-wedison-orange"
+                      className="text-sm text-foreground/70 transition-colors hover:text-wedison-green"
                     >
                       {link.label[locale]}
                     </Link>
@@ -46,7 +46,7 @@ export default function Footer() {
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
             {legalLinks.map((link: NavLink) => (
               <li key={link.href}>
-                <Link href={link.href} className="transition-colors hover:text-wedison-orange">
+                <Link href={link.href} className="transition-colors hover:text-wedison-green">
                   {link.label[locale]}
                 </Link>
               </li>

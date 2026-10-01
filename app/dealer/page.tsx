@@ -18,6 +18,7 @@ export default function DealerPage() {
         primary={{ label: "Book a Test Ride", href: "/test-ride" }}
         secondary={{ label: "Become a Dealer", href: "/dealer-partnership" }}
         crumbs={[{ label: "Find a dealer" }]}
+        image={{ src: "/images/wedison/showroom/showroom-waiting-room.webp", alt: "WEDISON showroom waiting room" }}
       />
       <section className="py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

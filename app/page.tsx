@@ -39,7 +39,7 @@ function Section({
   children: React.ReactNode;
   tone?: "light" | "soft" | "dark";
 }) {
-  const bg = tone === "dark" ? "bg-[#0d0f11] text-white" : tone === "soft" ? "bg-foreground/[0.03]" : "bg-background";
+  const bg = tone === "dark" ? "bg-wedison-charcoal text-white" : tone === "soft" ? "bg-wedison-soft" : "bg-background";
   return (
     <section className={`${bg} py-20 sm:py-28`}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
@@ -51,8 +51,8 @@ function Section({
 function Hero() {
   const h = homeContent.hero;
   return (
-    <section className="relative isolate overflow-hidden bg-[#0d0f11] text-white">
-      <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_75%_35%,#2a2f34_0%,#14171a_50%,#0d0f11_100%)]" />
+    <section className="relative isolate overflow-hidden bg-wedison-ink text-white">
+      <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_75%_35%,#282d2a_0%,#1a1f1c_50%,#111513_100%)]" />
       <div className="mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8">
         <div>
           <Eyebrow light>WEDISON · Electric mobility</Eyebrow>
@@ -63,7 +63,7 @@ function Hero() {
             High-performance electric motorcycles powered by smart technology and 15-minute supercharging.*
           </p>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-            <CtaButton href={h.ctas.primary.href}>Test Ride</CtaButton>
+            <CtaButton href={h.ctas.primary.href} conversion>Test Ride</CtaButton>
             <GhostButton href={h.ctas.secondary.href}>Explore Models</GhostButton>
           </div>
           <p className="mt-4">
@@ -372,14 +372,19 @@ function FindYours() {
             Pick a city, choose a location and book a test ride in under a minute.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <CtaButton href="/test-ride">Book a Test Ride</CtaButton>
+            <CtaButton href="/test-ride" conversion>Book a Test Ride</CtaButton>
             <GhostButton href="/dealer" className="text-foreground">
               Find a Dealer
             </GhostButton>
           </div>
         </div>
         <div className="aspect-[16/9] overflow-hidden rounded-3xl">
-          <PlaceholderArt kind="business" />
+          <Visual
+            kind="business"
+            src="/images/wedison/showroom/showroom-reception.webp"
+            alt="WEDISON showroom reception"
+            className="h-full w-full"
+          />
         </div>
       </div>
     </Section>
@@ -390,14 +395,14 @@ function FindYours() {
 function FinalStatement() {
   const f = homeContent.finalStatement;
   return (
-    <section className="relative isolate overflow-hidden bg-[#0d0f11] py-28 text-center text-white sm:py-40">
-      <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_100%,#2a2f34_0%,#0d0f11_65%)]" />
+    <section className="relative isolate overflow-hidden bg-wedison-ink py-28 text-center text-white sm:py-40">
+      <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_100%,#282d2a_0%,#111513_65%)]" />
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         <h2 className="text-4xl font-extrabold uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl">
           The future of mobility is already moving.
         </h2>
         <div className="mt-10">
-          <CtaButton href={f.cta.href}>Ride WEDISON</CtaButton>
+          <CtaButton href={f.cta.href} conversion>Ride WEDISON</CtaButton>
         </div>
       </div>
     </section>

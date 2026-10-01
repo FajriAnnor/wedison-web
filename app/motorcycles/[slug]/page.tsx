@@ -62,6 +62,7 @@ export default async function ProductPage(props: PageProps<"/motorcycles/[slug]"
         primary={{ label: "Book a Test Ride", href: `/test-ride?model=${p.slug}` }}
         secondary={{ label: "Compare Models", href: `/compare?models=${p.slug}` }}
         crumbs={[{ label: "Motorcycles", href: "/motorcycles" }, { label: p.name }]}
+        image={p.slug === "bees-pro" ? undefined : { src: p.heroImage.src, alt: p.heroImage.alt[locale] }}
       />
 
       <section className="py-16 sm:py-20">
@@ -112,7 +113,7 @@ export default async function ProductPage(props: PageProps<"/motorcycles/[slug]"
             </ul>
 
             <div className="mt-10 flex flex-wrap items-center gap-4">
-              <CtaButton href={`/test-ride?model=${p.slug}`}>Test Ride</CtaButton>
+              <CtaButton href={`/test-ride?model=${p.slug}`} conversion>Test Ride</CtaButton>
               <Link href="/dealer" className="text-sm font-semibold underline-offset-4 hover:underline">
                 Find a Dealer
               </Link>
@@ -184,7 +185,7 @@ export default async function ProductPage(props: PageProps<"/motorcycles/[slug]"
             ))}
           </ul>
           <div className="mt-10 flex flex-wrap gap-4">
-            <CtaButton href={`/test-ride?model=${p.slug}`}>Book a Test Ride</CtaButton>
+            <CtaButton href={`/test-ride?model=${p.slug}`} conversion>Book a Test Ride</CtaButton>
             <Link href="/motorcycles" className="inline-flex items-center text-sm font-semibold underline-offset-4 hover:underline">
               All motorcycles
             </Link>

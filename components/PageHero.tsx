@@ -1,5 +1,6 @@
 import Link from "next/link";
-import PlaceholderArt, { type VisualKind } from "./ui/PlaceholderArt";
+import type { VisualKind } from "./ui/PlaceholderArt";
+import Visual from "./ui/Visual";
 import { CtaButton, GhostButton } from "./ui/common";
 
 export interface Crumb {
@@ -15,6 +16,7 @@ export default function PageHero({
   primary,
   secondary,
   crumbs = [],
+  image,
 }: {
   eyebrow: string;
   title: string;
@@ -23,9 +25,10 @@ export default function PageHero({
   primary?: { label: string; href: string };
   secondary?: { label: string; href: string };
   crumbs?: Crumb[];
+  image?: { src: string; alt: string };
 }) {
   return (
-    <section className="relative isolate overflow-hidden bg-[#0d0f11] text-white">
+    <section className="relative isolate overflow-hidden bg-wedison-ink text-white">
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-2 lg:px-8">
         <div>
           <nav aria-label="Breadcrumb" className="mb-6 text-xs text-white/50">
@@ -56,13 +59,17 @@ export default function PageHero({
           <p className="mt-6 max-w-xl text-base text-white/75 sm:text-lg">{intro}</p>
           {(primary || secondary) && (
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              {primary && <CtaButton href={primary.href}>{primary.label}</CtaButton>}
+              {primary && (
+                <CtaButton href={primary.href} conversion={primary.href.startsWith("/test-ride")}>
+                  {primary.label}
+                </CtaButton>
+              )}
               {secondary && <GhostButton href={secondary.href}>{secondary.label}</GhostButton>}
             </div>
           )}
         </div>
         <div className="aspect-[4/3] overflow-hidden rounded-3xl border border-white/10">
-          <PlaceholderArt kind={visual} />
+          <Visual kind={visual} src={image?.src} alt={image?.alt ?? `Illustrative placeholder: ${visual}`} className="h-full w-full" />
         </div>
       </div>
     </section>

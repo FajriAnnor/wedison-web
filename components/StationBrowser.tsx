@@ -25,7 +25,7 @@ const STATUS_LABEL: Record<StationStatus, string> = {
 const STATUS_DOT: Record<StationStatus, string> = {
   operational: "bg-wedison-green",
   coming_soon: "bg-foreground/40",
-  maintenance: "bg-wedison-orange",
+  maintenance: "bg-wedison-dark-grey",
 };
 
 function num(dp: SuperchargerStation["chargingPowerKw"], unit: string) {
@@ -152,7 +152,7 @@ export default function StationBrowser() {
                 Sample location for the local prototype. Not a confirmed WEDISON Supercharger.
               </p>
               <div className="mt-5">
-                <CtaButton href="/test-ride">Book a Test Ride</CtaButton>
+                <CtaButton href="/test-ride" conversion>Book a Test Ride</CtaButton>
               </div>
             </div>
           )}

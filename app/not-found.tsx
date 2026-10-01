@@ -3,7 +3,7 @@ import { CtaButton } from "@/components/ui/common";
 
 export default function NotFound() {
   return (
-    <section className="flex min-h-[60vh] items-center bg-[#0d0f11] text-white">
+    <section className="flex min-h-[60vh] items-center bg-wedison-ink text-white">
       <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/60">Error 404</p>
         <h1 className="mt-4 text-4xl font-extrabold uppercase leading-none sm:text-6xl">This road does not exist.</h1>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { DEFAULT_LOCALE, products, specDefinitions } from "../lib/mockData";
 import { CtaButton, DataValue, PriceValue } from "./ui/common";
@@ -59,7 +60,19 @@ export default function CompareTool({ initial = [] }: { initial?: string[] }) {
                 {chosen.map((p) => (
                   <th key={p.id} scope="col" className="p-4 align-top">
                     <div className="aspect-[4/3] overflow-hidden rounded-2xl">
-                      <PlaceholderArt kind="motorcycle" caption={false} />
+                      {p.slug === "bees-pro" ? (
+                        <PlaceholderArt kind="motorcycle" caption={false} />
+                      ) : (
+                        <div className="relative h-full w-full">
+                          <Image
+                            src={p.heroImage.src}
+                            alt={p.heroImage.alt[locale]}
+                            fill
+                            sizes="25vw"
+                            className="object-cover"
+                          />
+                        </div>
+                      )}
                     </div>
                     <p className="mt-3 text-base font-bold">{p.name}</p>
                   </th>
@@ -112,7 +125,7 @@ export default function CompareTool({ initial = [] }: { initial?: string[] }) {
                 <th scope="row" className="p-4" />
                 {chosen.map((p) => (
                   <td key={p.id} className="p-4">
-                    <CtaButton href={`/test-ride?model=${p.slug}`}>Test Ride</CtaButton>
+                    <CtaButton href={`/test-ride?model=${p.slug}`} conversion>Test Ride</CtaButton>
                   </td>
                 ))}
               </tr>

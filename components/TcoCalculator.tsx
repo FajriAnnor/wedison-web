@@ -111,7 +111,7 @@ export default function TcoCalculator({ compact = false }: { compact?: boolean }
         </p>
       </form>
 
-      <div className={`space-y-5 rounded-3xl bg-[#14171a] p-6 text-white sm:p-8 ${compact ? "" : "lg:col-span-3"}`} aria-live="polite">
+      <div className={`space-y-5 rounded-3xl bg-wedison-charcoal p-6 text-white sm:p-8 ${compact ? "" : "lg:col-span-3"}`} aria-live="polite">
         <p className="text-xs uppercase tracking-[0.2em] text-white/50">Estimated monthly running cost</p>
 
         {[

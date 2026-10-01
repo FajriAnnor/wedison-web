@@ -78,7 +78,7 @@ export default function Navbar() {
           {/* Desktop CTA */}
           <Link
             href={cta.href}
-            className="hidden rounded-full bg-wedison-orange px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md hover:brightness-110 lg:inline-block"
+            className="hidden rounded-full bg-wedison-orange px-5 py-2 text-sm font-semibold text-wedison-ink shadow-sm transition hover:-translate-y-0.5 hover:shadow-md hover:brightness-110 lg:inline-block"
           >
             {cta.label[locale]}
           </Link>
@@ -142,7 +142,7 @@ export default function Navbar() {
             <Link
               href={cta.href}
               onClick={close}
-              className="block rounded-full bg-wedison-orange px-5 py-3 text-center font-semibold text-white transition hover:brightness-110"
+              className="block rounded-full bg-wedison-orange px-5 py-3 text-center font-semibold text-wedison-ink transition hover:brightness-110"
             >
               {cta.label[locale]}
             </Link>

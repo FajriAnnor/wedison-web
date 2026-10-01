@@ -6,9 +6,13 @@ import {
   type Money,
 } from "../../lib/mockData";
 
-/** Every conversion button in the site uses this: orange #ff7400. */
+/** Standard brand action: WEDISON green. */
 export const ctaClass =
-  "inline-flex items-center justify-center rounded-full bg-wedison-orange px-7 py-3.5 text-sm font-semibold tracking-wide text-white transition hover:-translate-y-0.5 hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wedison-orange";
+  "inline-flex items-center justify-center rounded-full bg-wedison-green px-7 py-3.5 text-sm font-semibold tracking-wide text-wedison-ink transition hover:-translate-y-0.5 hover:bg-wedison-dark-green hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wedison-green";
+
+/** Reserved for conversion actions such as booking a test ride or purchasing. */
+export const conversionCtaClass =
+  "inline-flex items-center justify-center rounded-full bg-wedison-orange px-7 py-3.5 text-sm font-semibold tracking-wide text-wedison-ink transition hover:-translate-y-0.5 hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wedison-orange";
 
 export const ghostClass =
   "inline-flex items-center justify-center rounded-full border border-current px-7 py-3.5 text-sm font-semibold tracking-wide transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2";
@@ -17,13 +21,15 @@ export function CtaButton({
   href,
   children,
   className = "",
+  conversion = false,
 }: {
   href: string;
   children: React.ReactNode;
   className?: string;
+  conversion?: boolean;
 }) {
   return (
-    <Link href={href} className={`${ctaClass} ${className}`}>
+    <Link href={href} className={`${conversion ? conversionCtaClass : ctaClass} ${className}`}>
       {children}
     </Link>
   );

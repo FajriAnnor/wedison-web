@@ -55,7 +55,7 @@ export default async function ArticlePage(props: PageProps<"/articles/[slug]">) 
             the article layout: author, dates, category, image, reading time, related articles and call to action.
           </p>
           <div className="mt-10">
-            <CtaButton href="/test-ride">Book a Test Ride</CtaButton>
+            <CtaButton href="/test-ride" conversion>Book a Test Ride</CtaButton>
           </div>
         </div>
       </article>

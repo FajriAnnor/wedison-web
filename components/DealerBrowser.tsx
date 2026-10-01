@@ -78,7 +78,7 @@ export default function DealerBrowser() {
               </ul>
               <p className="mt-4 text-xs text-foreground/50">Sample location for the local prototype. Contact details pending.</p>
               <div className="mt-5 flex flex-wrap items-center gap-4">
-                {d.testRideAvailable && <CtaButton href={`/test-ride?dealer=${d.slug}&city=${d.citySlug}`}>Book a Test Ride</CtaButton>}
+                {d.testRideAvailable && <CtaButton href={`/test-ride?dealer=${d.slug}&city=${d.citySlug}`} conversion>Book a Test Ride</CtaButton>}
                 <Link href="/contact" className="text-sm font-semibold underline-offset-4 hover:underline">
                   Contact
                 </Link>

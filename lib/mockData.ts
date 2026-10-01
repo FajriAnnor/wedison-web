@@ -110,9 +110,9 @@ export const siteConfig = {
     cta: "#FF7400",
     brandGreen: "#00A86B", // sementara, sampai ada brand guideline resmi
     darkGreen: "#006B45",
-    charcoal: "#1C1F22",
-    darkGrey: "#3A3F44",
-    lightGrey: "#F2F4F5",
+    charcoal: "#1A1F1C",
+    darkGrey: "#282D2A",
+    lightGrey: "#E5E7E7",
     white: "#FFFFFF",
   },
 } as const;
@@ -350,6 +350,13 @@ const img = (name: string, alt: string, w = 1600, h = 1000): ImageAsset => ({
   height: h,
 });
 
+const officialImg = (path: string, alt: string, w = 1600, h = 1000): ImageAsset => ({
+  src: `/images/wedison/${path}`,
+  alt: { en: alt, id: alt },
+  width: w,
+  height: h,
+});
+
 /**
  * Default semua spec = "required". Tiap produk hanya override sebagian dengan mock,
  * sehingga state [DATA REQUIRED] juga ikut teruji di UI (khususnya real-world range
@@ -410,8 +417,11 @@ export const products: Product[] = [
       { name: { en: "Midnight Black", id: "Hitam" }, hex: "#1C1F22" },
       { name: { en: "Arctic White", id: "Putih" }, hex: "#F5F5F5" },
     ],
-    heroImage: img("ed-power-hero", "WEDISON ED Power electric motorcycle, side view"),
-    gallery: [img("ed-power-1", "ED Power detail"), img("ed-power-2", "ED Power riding in the city")],
+    heroImage: officialImg("motorcycles/edpower/edpower-hero.webp", "WEDISON EDPower electric motorcycle", 1000, 1000),
+    gallery: [
+      officialImg("motorcycles/edpower/edpower-overview.webp", "WEDISON EDPower electric motorcycle side profile", 1000, 1000),
+      officialImg("motorcycles/edpower/edpower-dashboard.webp", "WEDISON EDPower cockpit and digital display", 1000, 500),
+    ],
     highlights: {
       en: ["Supercharge compatible (mock)", "Instant torque", "Low running cost"],
       id: ["Kompatibel Supercharge (mock)", "Torsi instan", "Biaya operasional rendah"],
@@ -442,8 +452,8 @@ export const products: Product[] = [
       { name: { en: "Sage Green", id: "Hijau Sage" }, hex: "#9CAF88" },
       { name: { en: "Cream", id: "Krem" }, hex: "#EFE6D2" },
     ],
-    heroImage: img("athena-hero", "WEDISON Athena electric motorcycle, side view"),
-    gallery: [img("athena-1", "Athena detail")],
+    heroImage: officialImg("motorcycles/athena/athena-hero.webp", "WEDISON Athena electric motorcycles", 1000, 1000),
+    gallery: [officialImg("motorcycles/athena/athena-overview.webp", "WEDISON Athena electric motorcycle", 1000, 1000)],
     highlights: {
       en: ["Lightweight (mock)", "Easy to ride", "Supercharge compatible (mock)"],
       id: ["Ringan (mock)", "Mudah dikendarai", "Kompatibel Supercharge (mock)"],
@@ -469,8 +479,8 @@ export const products: Product[] = [
       weight: mock(90),
     }),
     colors: [{ name: { en: "Graphite", id: "Grafit" }, hex: "#3A3F44" }],
-    heroImage: img("victory-hero", "WEDISON Victory electric motorcycle, side view"),
-    gallery: [img("victory-1", "Victory detail")],
+    heroImage: officialImg("motorcycles/victory/victory-hero.webp", "WEDISON Victory electric motorcycle", 1000, 1000),
+    gallery: [officialImg("motorcycles/victory/victory-overview.webp", "WEDISON Victory electric motorcycle side profile", 1000, 1000)],
     highlights: {
       en: ["Built for daily commuting", "Low maintenance", "Compact"],
       id: ["Untuk harian", "Perawatan minim", "Ringkas"],
@@ -1056,7 +1066,7 @@ export const businessSolutions: BusinessSolution[] = [
     title: { en: "Dealer Partnership", id: "Kemitraan Dealer" },
     summary: { en: "Bring WEDISON to your city.", id: "Hadirkan WEDISON di kotamu." },
     audiences: { en: ["Dealer opportunities"], id: ["Peluang dealer"] },
-    image: img("biz-dealer", "Dealer showroom (placeholder)"),
+    image: officialImg("showroom/showroom-reception.webp", "WEDISON showroom reception", 600, 600),
   },
   {
     id: "charging-partner",
@@ -1064,7 +1074,7 @@ export const businessSolutions: BusinessSolution[] = [
     title: { en: "Charging Partner", id: "Mitra Charging" },
     summary: { en: "Host a Supercharger at your location.", id: "Jadi tuan rumah Supercharger di lokasimu." },
     audiences: { en: ["Retail", "Restaurants", "Hotels"], id: ["Ritel", "Restoran", "Hotel"] },
-    image: img("biz-charging", "Charging station at a venue (placeholder)"),
+    image: officialImg("supercharge/supercharge-network.webp", "WEDISON motorcycles and SuperCharge network", 800, 450),
   },
 ];
 
@@ -1176,7 +1186,7 @@ export const articles: Article[] = [
     publishedAt: "2026-09-01",
     updatedAt: "2026-09-05",
     readingMinutes: 6,
-    featuredImage: img("article-04", "Supercharger in use (placeholder)"),
+    featuredImage: officialImg("supercharge/victory-supercharging.webp", "WEDISON Victory electric motorcycle using SuperCharge", 800, 450),
     relatedSlugs: ["battery-care-guide"],
     isMock: true,
   },
@@ -1290,7 +1300,7 @@ export const homeContent = {
       en: "Electric motorcycles powered by smart technology and 15-Minute Supercharge*.",
       id: "Motor listrik dengan teknologi pintar dan 15-Minute Supercharge*.",
     } satisfies Localized,
-    media: img("home-hero", "Rider on a WEDISON electric motorcycle at dusk (placeholder)", 2400, 1350),
+    media: officialImg("motorcycles/edpower/edpower-landing-hero.webp", "WEDISON EDPower electric motorcycle", 2400, 1350),
     ctas: {
       primary: { label: { en: "Book a Test Ride", id: "Booking Test Ride" }, href: "/test-ride" },
       secondary: { label: { en: "Explore Models", id: "Lihat Model" }, href: "/motorcycles" },
