@@ -1,37 +1,18 @@
 import Link from "next/link";
-import { ArticleCard, ProductCard, StoryCard } from "@/components/cards";
+import { ProductCard } from "@/components/cards";
 import ChargingVisual from "@/components/ChargingVisual";
 import HeroSlider from "@/components/HeroSlider";
-import TcoCalculator from "@/components/TcoCalculator";
-import PlaceholderArt from "@/components/ui/PlaceholderArt";
-import Visual from "@/components/ui/Visual";
 import { CtaButton, Eyebrow, GhostButton, SectionHeading } from "@/components/ui/common";
 import {
   DEFAULT_LOCALE,
-  articles,
-  businessSolutions,
-  cities,
-  customerStories,
   homeContent,
-  ownershipPillars,
   products,
   siteConfig,
   superchargeClaim,
-  superchargerStations,
-  techPillars,
   whyElectricPoints,
 } from "@/lib/mockData";
 
 const locale = DEFAULT_LOCALE;
-
-const BUSINESS_HREF: Record<string, string> = {
-  fleet: "/fleet",
-  rental: "/rental",
-  hospitality: "/hospitality",
-  corporate: "/corporate",
-  dealer: "/dealer-partnership",
-  "charging-partner": "/charging-partnership",
-};
 
 function Section({
   children,
@@ -88,10 +69,10 @@ function Supercharge() {
         <div>
           <Eyebrow>{superchargeClaim.claimLabel}</Eyebrow>
           <h2 className="mt-4 text-4xl font-extrabold uppercase leading-none tracking-tight sm:text-5xl lg:text-6xl">
-            15 minutes. Back on the road.
+            15 minutes. Ready to move.
           </h2>
           <p className="mt-6 max-w-md text-base text-foreground/70 sm:text-lg">
-            {superchargeClaim.subline[locale]} Ride, plug in, and be moving again in the time it takes to finish a coffee.
+            Charge compatible WEDISON motorcycles from 10% to 80% in 15 minutes. Find nearby stations and monitor charging through the WEDISON app.
           </p>
           <div className="mt-8">
             <CtaButton href="/supercharge">Discover Supercharge</CtaButton>
@@ -126,97 +107,7 @@ function Motorcycles() {
   );
 }
 
-/* 04 Technology */
-const TECH_ORDER = ["battery", "motor", "bms", "controller", "supercharger", "infrastructure"] as const;
-
-function Technology() {
-  const steps = TECH_ORDER.map((id) => techPillars.find((p) => p.id === id)).filter(
-    (p): p is (typeof techPillars)[number] => p !== undefined,
-  );
-  return (
-    <Section tone="dark">
-      <SectionHeading
-        light
-        eyebrow="The technology"
-        title="One system. Engineered end to end."
-        body="Every part of a WEDISON works with the next, from the energy stored in the battery to the network that refills it."
-      />
-      <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
-        {steps.map((step, i) => (
-          <li key={step.id} className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold tabular-nums text-wedison-green">{String(i + 1).padStart(2, "0")}</span>
-              <span aria-hidden className="h-2 w-2 rounded-full bg-wedison-green" />
-            </div>
-            <h3 className="mt-5 font-bold leading-tight">{step.title[locale]}</h3>
-            <p className="mt-2 text-sm text-white/65">{step.summary[locale]}</p>
-          </li>
-        ))}
-      </ol>
-      <div className="mt-10">
-        <CtaButton href="/technology">Explore Our Technology</CtaButton>
-      </div>
-    </Section>
-  );
-}
-
-/* 05 Network */
-function Network() {
-  const rows = cities
-    .map((city) => {
-      const list = superchargerStations.filter((s) => s.citySlug === city.slug);
-      return {
-        slug: city.slug,
-        name: city.name[locale],
-        live: list.filter((s) => s.status === "operational").length,
-        soon: list.filter((s) => s.status === "coming_soon").length,
-      };
-    })
-    .filter((r) => r.live + r.soon > 0);
-
-  return (
-    <Section>
-      <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-        <div className="order-2 lg:order-1">
-          <div className="aspect-[4/3] overflow-hidden rounded-3xl">
-            <PlaceholderArt kind="map" />
-          </div>
-          <ul className="mt-6 divide-y divide-black/10 dark:divide-white/10">
-            {rows.map((r) => (
-              <li key={r.slug} className="flex items-center justify-between py-3 text-sm">
-                <span className="font-semibold">{r.name}</span>
-                <span className="flex items-center gap-3 text-foreground/60">
-                  {r.live > 0 && (
-                    <span className="flex items-center gap-1.5">
-                      <span aria-hidden className="h-2 w-2 rounded-full bg-wedison-green" />
-                      {r.live} sample live
-                    </span>
-                  )}
-                  {r.soon > 0 && <span>{r.soon} coming soon</span>}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="order-1 lg:order-2">
-          <Eyebrow>Supercharger network</Eyebrow>
-          <h2 className="mt-4 text-4xl font-extrabold uppercase leading-none tracking-tight sm:text-5xl lg:text-6xl">
-            Powering your journey.
-          </h2>
-          <p className="mt-6 max-w-md text-base text-foreground/70 sm:text-lg">
-            Charging is infrastructure, not an accessory. The network is being built so the next charge is always on your route.
-          </p>
-          <p className="mt-3 text-xs text-foreground/50">Locations shown are samples for the local prototype.</p>
-          <div className="mt-8">
-            <CtaButton href="/supercharger-network">Find a Supercharger</CtaButton>
-          </div>
-        </div>
-      </div>
-    </Section>
-  );
-}
-
-/* 06 Why electric */
+/* 04 Why electric */
 function WhyElectric() {
   return (
     <Section tone="soft">
@@ -239,154 +130,7 @@ function WhyElectric() {
   );
 }
 
-/* 07 TCO */
-function Tco() {
-  return (
-    <Section>
-      <SectionHeading
-        eyebrow="Ownership economics"
-        title="How much could you save?"
-        body="Move the sliders and compare a WEDISON with a petrol motorcycle."
-      />
-      <div className="mt-12">
-        <TcoCalculator compact />
-      </div>
-      <div className="mt-10">
-        <CtaButton href="/ownership-cost">Calculate Your Savings</CtaButton>
-      </div>
-    </Section>
-  );
-}
-
-/* 08 Stories */
-function Stories() {
-  return (
-    <Section tone="soft">
-      <SectionHeading
-        eyebrow="Riders"
-        title="Real people. Real rides."
-        body="Sample layout with fictional profiles. Verified rider stories replace these before launch."
-      />
-      <ul className="mt-12 grid gap-6 md:grid-cols-3">
-        {customerStories.map((s) => (
-          <li key={s.id}>
-            <StoryCard story={s} />
-          </li>
-        ))}
-      </ul>
-      <div className="mt-10">
-        <CtaButton href="/riders">Meet the WEDISON Riders</CtaButton>
-      </div>
-    </Section>
-  );
-}
-
-/* 09 Ownership */
-function Ownership() {
-  return (
-    <Section>
-      <SectionHeading eyebrow="After you buy" title="Own with confidence." body="WEDISON stays with you after the sale." />
-      <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-        {ownershipPillars.map((p) => (
-          <li key={p.id} className="rounded-2xl border border-black/10 p-5 dark:border-white/10">
-            <h3 className="font-bold">{p.title[locale]}</h3>
-            <p className={`mt-2 text-sm ${p.status === "required" ? "text-foreground/40" : "text-foreground/70"}`}>{p.body[locale]}</p>
-          </li>
-        ))}
-      </ul>
-      <div className="mt-10">
-        <CtaButton href="/service-support">Explore Ownership</CtaButton>
-      </div>
-    </Section>
-  );
-}
-
-/* 10 Business */
-function Business() {
-  return (
-    <Section tone="dark">
-      <SectionHeading
-        light
-        eyebrow="Business"
-        title="Built for more than one rider."
-        body="Fleets, rental operators, hotels, companies and partners can all run on WEDISON."
-      />
-      <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {businessSolutions.map((b) => (
-          <li key={b.id}>
-            <Link
-              href={BUSINESS_HREF[b.id] ?? "/business"}
-              className="block h-full rounded-2xl border border-white/10 bg-white/[0.04] p-6 transition hover:border-white/30 hover:bg-white/[0.07]"
-            >
-              <h3 className="font-bold">{b.title[locale]}</h3>
-              <p className="mt-2 text-sm text-white/65">{b.summary[locale]}</p>
-              <span className="mt-4 inline-block text-sm font-semibold text-wedison-green">Learn more →</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <div className="mt-10">
-        <CtaButton href="/business">Explore Business Solutions</CtaButton>
-      </div>
-    </Section>
-  );
-}
-
-/* 11 Latest stories */
-function Latest() {
-  return (
-    <Section>
-      <SectionHeading eyebrow="Latest stories" title="Learn before you ride." />
-      <ul className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {articles.map((a) => (
-          <li key={a.id}>
-            <ArticleCard article={a} />
-          </li>
-        ))}
-      </ul>
-      <div className="mt-10">
-        <GhostButton href="/articles" className="text-foreground">
-          All Articles
-        </GhostButton>
-      </div>
-    </Section>
-  );
-}
-
-/* 12 Find your WEDISON */
-function FindYours() {
-  return (
-    <Section tone="soft">
-      <div className="grid items-center gap-10 lg:grid-cols-2">
-        <div>
-          <Eyebrow>Find your WEDISON</Eyebrow>
-          <h2 className="mt-4 text-4xl font-extrabold uppercase leading-none tracking-tight sm:text-5xl">
-            See it. Ride it. Decide.
-          </h2>
-          <p className="mt-6 max-w-md text-base text-foreground/70 sm:text-lg">
-            Pick a city, choose a location and book a test ride in under a minute.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <CtaButton href="/test-ride" conversion>Book a Test Ride</CtaButton>
-            <GhostButton href="/dealer" className="text-foreground">
-              Find a Dealer
-            </GhostButton>
-          </div>
-        </div>
-        <div className="aspect-[16/9] overflow-hidden rounded-3xl">
-          <Visual
-            kind="business"
-            src="/images/wedison/showroom/showroom-reception.webp"
-            alt="WEDISON showroom reception"
-            className="h-full w-full"
-          />
-        </div>
-      </div>
-    </Section>
-  );
-}
-
-/* 13 Final statement */
+/* 05 Final statement */
 function FinalStatement() {
   const f = homeContent.finalStatement;
   return (
@@ -417,17 +161,9 @@ export default function Home() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
       <Hero />
-      <Supercharge />
       <Motorcycles />
-      <Technology />
-      <Network />
+      <Supercharge />
       <WhyElectric />
-      <Tco />
-      <Stories />
-      <Ownership />
-      <Business />
-      <Latest />
-      <FindYours />
       <FinalStatement />
     </>
   );

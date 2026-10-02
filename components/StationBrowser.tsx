@@ -52,6 +52,9 @@ export default function StationBrowser() {
 
   return (
     <div>
+      <p className="mb-6 rounded-2xl border border-black/10 bg-foreground/[0.03] p-4 text-sm text-foreground/65 dark:border-white/10">
+        Prototype preview: the locations, addresses, power figures and statuses below are sample data. Use the WEDISON app for official station information and live availability.
+      </p>
       <div className="flex flex-col gap-3 sm:flex-row">
         <label className="flex-1 text-sm">
           <span className="mb-1 block font-medium">City</span>

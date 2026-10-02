@@ -4,9 +4,9 @@
  * WEDISON Website: Mock Data Layer (LOCALHOST ONLY)
  *
  * ATURAN DATA INTEGRITY (brief section 54):
- * Semua angka, harga, spesifikasi, lokasi, dan testimoni di file ini adalah DUMMY.
+ * Angka, harga, spesifikasi, lokasi, dan testimoni disimpan bersama status sumbernya.
  * Setiap nilai faktual dibungkus DataPoint dengan status:
- *   - "verified" : sudah dikonfirmasi tim WEDISON (belum ada satu pun di file ini)
+ *   - "verified" : dipublikasikan oleh WEDISON pada kanal resminya
  *   - "mock"     : angka dummy untuk kebutuhan UI dev, TIDAK BOLEH tayang di production
  *   - "required" : sengaja dikosongkan, UI wajib render "[DATA REQUIRED]"
  *
@@ -40,6 +40,7 @@ export const PLACEHOLDER_LABEL = "[PLACEHOLDER]";
 // Helper constructors supaya penulisan data konsisten
 const mock = <T>(value: T, note?: string): DataPoint<T> => ({ value, status: "mock", note });
 const required = <T = never>(note: string): DataPoint<T> => ({ value: null, status: "required", note });
+const verified = <T>(value: T, note?: string): DataPoint<T> => ({ value, status: "verified", note });
 
 /** true kalau nilai boleh dirender sebagai angka/teks biasa */
 export const hasValue = <T>(dp: DataPoint<T>): dp is DataPoint<T> & { value: T } =>
@@ -127,89 +128,138 @@ export interface NavLink {
   href: string;
 }
 
+export interface NavSection {
+  id: string;
+  label?: Localized;
+  links: NavLink[];
+}
+
 export interface NavGroup {
   id: string;
   label: Localized;
-  links: NavLink[];
+  sections: NavSection[];
 }
 
 export const mainNavigation: NavGroup[] = [
   {
-    id: "products",
-    label: { en: "Products", id: "Produk" },
-    links: [
-      { label: { en: "All Motorcycles", id: "Semua Motor" }, href: "/motorcycles" },
-      { label: { en: "Urban", id: "Urban" }, href: "/motorcycles?category=urban" },
-      { label: { en: "Performance", id: "Performance" }, href: "/motorcycles?category=performance" },
-      { label: { en: "Commuter", id: "Commuter" }, href: "/motorcycles?category=commuter" },
-      { label: { en: "Lifestyle", id: "Lifestyle" }, href: "/motorcycles?category=lifestyle" },
-      { label: { en: "New Models", id: "Model Terbaru" }, href: "/motorcycles?category=new" },
-      { label: { en: "Compare Models", id: "Bandingkan Model" }, href: "/compare" },
+    id: "motorcycles",
+    label: { en: "Motorcycles", id: "Motor" },
+    sections: [
+      {
+        id: "lineup",
+        label: { en: "The lineup", id: "Pilihan motor" },
+        links: [
+          { label: { en: "Motorcycle Overview", id: "Semua Motor" }, href: "/motorcycles" },
+          { label: { en: "EDPower", id: "EDPower" }, href: "/motorcycles/ed-power" },
+          { label: { en: "Athena", id: "Athena" }, href: "/motorcycles/athena" },
+          { label: { en: "Victory", id: "Victory" }, href: "/motorcycles/victory" },
+          { label: { en: "Bees Pro", id: "Bees Pro" }, href: "/motorcycles/bees-pro" },
+          { label: { en: "Compare Models", id: "Bandingkan Model" }, href: "/compare" },
+        ],
+      },
     ],
   },
   {
-    id: "why-wedison",
-    label: { en: "Why WEDISON", id: "Kenapa WEDISON" },
-    links: [
-      { label: { en: "Why Electric", id: "Kenapa Listrik" }, href: "/why-electric" },
-      { label: { en: "Our Technology", id: "Teknologi Kami" }, href: "/technology" },
-      { label: { en: "15-Minute Supercharge", id: "15-Minute Supercharge" }, href: "/supercharge" },
-      { label: { en: "Supercharger Network", id: "Jaringan Supercharger" }, href: "/supercharger-network" },
-      { label: { en: "Battery", id: "Baterai" }, href: "/battery" },
-      { label: { en: "Performance", id: "Performa" }, href: "/performance" },
-      { label: { en: "Safety", id: "Keamanan" }, href: "/safety" },
-      { label: { en: "Ownership Cost", id: "Biaya Kepemilikan" }, href: "/ownership-cost" },
-      { label: { en: "Service & Warranty", id: "Servis & Garansi" }, href: "/service-support" },
-      { label: { en: "Sustainability", id: "Keberlanjutan" }, href: "/sustainability" },
-      { label: { en: "FAQ", id: "FAQ" }, href: "/faq" },
+    id: "supercharge",
+    label: { en: "SuperCharge", id: "SuperCharge" },
+    sections: [
+      {
+        id: "charging",
+        links: [
+          { label: { en: "WEDISON SuperCharge", id: "WEDISON SuperCharge" }, href: "/supercharge" },
+          { label: { en: "Find a Station", id: "Cari Stasiun" }, href: "/supercharger" },
+          { label: { en: "SuperCharge Network", id: "Jaringan SuperCharge" }, href: "/supercharger-network" },
+          { label: { en: "Charging Guide", id: "Panduan Charging" }, href: "/charging-guide" },
+          { label: { en: "Charging Partnership", id: "Kemitraan Charging" }, href: "/charging-partnership" },
+        ],
+      },
     ],
   },
   {
-    id: "experience",
-    label: { en: "Experience", id: "Pengalaman" },
-    links: [
-      { label: { en: "Test Ride", id: "Test Ride" }, href: "/test-ride" },
-      { label: { en: "Find a Dealer", id: "Cari Dealer" }, href: "/dealer" },
-      { label: { en: "Find a Supercharger", id: "Cari Supercharger" }, href: "/supercharger" },
-      { label: { en: "WEDISON Riders", id: "WEDISON Riders" }, href: "/riders" },
-      { label: { en: "Customer Stories", id: "Cerita Pelanggan" }, href: "/customer-stories" },
-      { label: { en: "Ownership Guide", id: "Panduan Kepemilikan" }, href: "/ownership-guide" },
-      { label: { en: "Service & Support", id: "Servis & Dukungan" }, href: "/service-support" },
+    id: "technology",
+    label: { en: "Technology", id: "Teknologi" },
+    sections: [
+      {
+        id: "engineering",
+        links: [
+          { label: { en: "WEDISON Technology", id: "Teknologi WEDISON" }, href: "/technology" },
+          { label: { en: "Battery & BMS", id: "Baterai & BMS" }, href: "/battery" },
+          { label: { en: "Performance", id: "Performa" }, href: "/performance" },
+          { label: { en: "Safety", id: "Keamanan" }, href: "/safety" },
+          { label: { en: "Battery Guide", id: "Panduan Baterai" }, href: "/battery-guide" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "ownership",
+    label: { en: "Ownership", id: "Kepemilikan" },
+    sections: [
+      {
+        id: "get-started",
+        label: { en: "Get started", id: "Mulai" },
+        links: [
+          { label: { en: "Book a Test Ride", id: "Booking Test Ride" }, href: "/test-ride" },
+          { label: { en: "Find a Dealer", id: "Cari Dealer" }, href: "/dealer" },
+        ],
+      },
+      {
+        id: "support",
+        label: { en: "Ownership & support", id: "Kepemilikan & dukungan" },
+        links: [
+          { label: { en: "Ownership Guide", id: "Panduan Kepemilikan" }, href: "/ownership-guide" },
+          { label: { en: "Ownership Cost", id: "Biaya Kepemilikan" }, href: "/ownership-cost" },
+          { label: { en: "Service & Support", id: "Servis & Dukungan" }, href: "/service-support" },
+          { label: { en: "FAQ", id: "FAQ" }, href: "/faq" },
+        ],
+      },
+      {
+        id: "community",
+        label: { en: "Community", id: "Komunitas" },
+        links: [
+          { label: { en: "WEDISON Riders", id: "WEDISON Riders" }, href: "/riders" },
+          { label: { en: "Customer Stories", id: "Cerita Pelanggan" }, href: "/customer-stories" },
+        ],
+      },
     ],
   },
   {
     id: "discover",
     label: { en: "Discover", id: "Jelajahi" },
-    links: [
-      { label: { en: "Articles", id: "Artikel" }, href: "/articles" },
-      { label: { en: "Buying Guide", id: "Panduan Membeli" }, href: "/buying-guide" },
-      { label: { en: "Battery Guide", id: "Panduan Baterai" }, href: "/battery-guide" },
-      { label: { en: "Charging Guide", id: "Panduan Charging" }, href: "/charging-guide" },
-      { label: { en: "WEDISON News", id: "Berita WEDISON" }, href: "/articles?category=wedison-news" },
-    ],
-  },
-  {
-    id: "business",
-    label: { en: "Business", id: "Bisnis" },
-    links: [
-      { label: { en: "All Business Solutions", id: "Semua Solusi Bisnis" }, href: "/business" },
-      { label: { en: "Fleet Solutions", id: "Solusi Armada" }, href: "/fleet" },
-      { label: { en: "Rental Business", id: "Bisnis Rental" }, href: "/rental" },
-      { label: { en: "Hospitality Solutions", id: "Solusi Hospitality" }, href: "/hospitality" },
-      { label: { en: "Corporate Solutions", id: "Solusi Korporat" }, href: "/corporate" },
-      { label: { en: "Charging Partnership", id: "Kemitraan Charging" }, href: "/charging-partnership" },
-      { label: { en: "Become a Dealer", id: "Menjadi Dealer" }, href: "/dealer-partnership" },
-    ],
-  },
-  {
-    id: "company",
-    label: { en: "Company", id: "Perusahaan" },
-    links: [
-      { label: { en: "About WEDISON", id: "Tentang WEDISON" }, href: "/about" },
-      { label: { en: "Our Story", id: "Cerita Kami" }, href: "/our-story" },
-      { label: { en: "Careers", id: "Karier" }, href: "/careers" },
-      { label: { en: "Media / Press", id: "Media / Pers" }, href: "/media" },
-      { label: { en: "Contact", id: "Kontak" }, href: "/contact" },
+    sections: [
+      {
+        id: "learn",
+        label: { en: "Learn", id: "Pelajari" },
+        links: [
+          { label: { en: "Why Electric", id: "Kenapa Listrik" }, href: "/why-electric" },
+          { label: { en: "Articles", id: "Artikel" }, href: "/articles" },
+          { label: { en: "Buying Guide", id: "Panduan Membeli" }, href: "/buying-guide" },
+          { label: { en: "Sustainability", id: "Keberlanjutan" }, href: "/sustainability" },
+        ],
+      },
+      {
+        id: "company",
+        label: { en: "Company", id: "Perusahaan" },
+        links: [
+          { label: { en: "About WEDISON", id: "Tentang WEDISON" }, href: "/about" },
+          { label: { en: "Our Story", id: "Cerita Kami" }, href: "/our-story" },
+          { label: { en: "Careers", id: "Karier" }, href: "/careers" },
+          { label: { en: "Media / Press", id: "Media / Pers" }, href: "/media" },
+          { label: { en: "Contact", id: "Kontak" }, href: "/contact" },
+        ],
+      },
+      {
+        id: "business",
+        label: { en: "Business", id: "Bisnis" },
+        links: [
+          { label: { en: "Business Solutions", id: "Solusi Bisnis" }, href: "/business" },
+          { label: { en: "Fleet Solutions", id: "Solusi Armada" }, href: "/fleet" },
+          { label: { en: "Rental Business", id: "Bisnis Rental" }, href: "/rental" },
+          { label: { en: "Hospitality Solutions", id: "Solusi Hospitality" }, href: "/hospitality" },
+          { label: { en: "Corporate Solutions", id: "Solusi Korporat" }, href: "/corporate" },
+          { label: { en: "Become a Dealer", id: "Menjadi Dealer" }, href: "/dealer-partnership" },
+        ],
+      },
     ],
   },
 ];
@@ -519,31 +569,40 @@ export const products: Product[] = [
 
 /* ========================================================================== */
 /* 6. 15-MINUTE SUPERCHARGE CLAIM (section 4 & 5)                             */
-/* Semua kondisi klaim WAJIB diisi tim WEDISON sebelum klaim boleh tayang.     */
+/* Fakta resmi ditandai verified; kondisi teknis yang belum dipublikasikan     */
+/* tetap berstatus required.                                                   */
 /* ========================================================================== */
 
 export const superchargeClaim = {
-  headline: { en: "15 minutes. Back on the road.", id: "15 menit. Kembali ke jalan." } satisfies Localized,
-  subline: { en: "Charge less. Ride more.", id: "Lebih sedikit menunggu. Lebih banyak berkendara." } satisfies Localized,
-  /** Tanda bintang wajib muncul di setiap penyebutan klaim */
-  claimLabel: "15-Minute Supercharge*",
+  headline: { en: "15 minutes. Ready to move.", id: "15 menit. Siap melaju." } satisfies Localized,
+  subline: {
+    en: "Fast, practical charging for compatible WEDISON motorcycles.",
+    id: "Pengisian cepat dan praktis untuk motor WEDISON yang kompatibel.",
+  } satisfies Localized,
+  claimLabel: "WEDISON SuperCharge",
+  sourceUrl: "https://wedison.co/super-charge/",
   conditions: {
-    startBatteryPercent: required<number>("Starting SoC %"),
-    endBatteryPercent: required<number>("Ending SoC % after 15 min"),
+    startBatteryPercent: verified(10, "Official WEDISON SuperCharge page"),
+    endBatteryPercent: verified(80, "Official WEDISON SuperCharge page"),
     chargerPowerKw: required<number>("Charger output kW"),
     batteryCapacityKwh: required<number>("Battery capacity tested"),
-    compatibleModelSlugs: required<string[]>("List of compatible models"),
+    compatibleModelSlugs: verified(["ed-power", "athena", "victory"], "Current WEDISON model and specification pages"),
     ambientTemperature: required<string>("Temperature range of test"),
     testType: required<"laboratory" | "real-world">("Lab or real-world tested"),
   },
-  /** Untuk animasi timeline homepage. Angka = MOCK visual saja */
+  networkLocations: verified("100+", "Official WEDISON SuperCharge page"),
+  chargingType: verified("DC fast charging", "Official WEDISON SuperCharge page"),
+  appFeatures: [
+    "Find nearby stations on an interactive map",
+    "Check real-time availability, queue status and estimated wait time",
+    "Start and monitor charging sessions",
+    "Review session history and analytics",
+  ],
   demoTimeline: [
-    { minute: 0, percent: 20 },
-    { minute: 5, percent: 45 },
-    { minute: 10, percent: 68 },
+    { minute: 0, percent: 10 },
     { minute: 15, percent: 80 },
   ],
-  demoTimelineStatus: "mock" as DataStatus,
+  demoTimelineStatus: "verified" as DataStatus,
   storySteps: [
     { id: "ride", label: { en: "Ride", id: "Berkendara" } },
     { id: "plug", label: { en: "Supercharge", id: "Supercharge" } },
@@ -908,25 +967,28 @@ export const techPillars: TechPillar[] = [
     id: "supercharger",
     title: { en: "Supercharger", id: "Supercharger" },
     summary: {
-      en: "High-speed charging designed to cut wait time while protecting the battery.",
-      id: "Pengisian cepat untuk memangkas waktu tunggu sambil menjaga baterai.",
+      en: "DC fast charging that takes compatible WEDISON motorcycles from 10% to 80% in 15 minutes.",
+      id: "Pengisian cepat DC dari 10% ke 80% dalam 15 menit untuk motor WEDISON yang kompatibel.",
     },
-    dataRequired: ["Charger output", "Charging curve", "Battery protection logic"],
+    dataRequired: ["Charger output", "Detailed charging curve"],
   },
   {
     id: "infrastructure",
     title: { en: "Infrastructure", id: "Infrastruktur" },
     summary: {
-      en: "A growing charging network that makes electric riding practical.",
-      id: "Jaringan charging yang terus bertambah agar motor listrik makin praktis.",
+      en: "More than 100 strategic SuperCharge locations across Indonesia.",
+      id: "Lebih dari 100 lokasi strategis SuperCharge di Indonesia.",
     },
-    dataRequired: ["Verified station count", "Expansion plan approved for publication"],
+    dataRequired: ["Published station directory", "Expansion plan approved for publication"],
   },
   {
     id: "connectivity",
     title: { en: "Connectivity", id: "Konektivitas" },
-    summary: { en: PLACEHOLDER_LABEL, id: PLACEHOLDER_LABEL },
-    dataRequired: ["Which features actually exist: app, GPS, diagnostics, OTA, anti-theft"],
+    summary: {
+      en: "Find stations, check live availability and monitor charging sessions through the WEDISON app.",
+      id: "Temukan stasiun, cek ketersediaan langsung, dan pantau sesi pengisian melalui aplikasi WEDISON.",
+    },
+    dataRequired: ["Availability of the app by platform and region"],
   },
 ];
 
@@ -1179,7 +1241,10 @@ export const articles: Article[] = [
     id: "ar-04",
     slug: "how-supercharging-works",
     title: { en: "How Supercharging Works", id: "Cara Kerja Supercharging" },
-    excerpt: { en: "What happens inside the battery during a fast charge.", id: "Apa yang terjadi di dalam baterai saat pengisian cepat." },
+    excerpt: {
+      en: "A concise guide to WEDISON's official charging speed, compatible models and SuperCharge app features.",
+      id: "Panduan singkat mengenai kecepatan pengisian resmi WEDISON, model kompatibel, dan fitur aplikasi SuperCharge.",
+    },
     category: "supercharging",
     funnelStage: "mofu",
     authorId: "a-01",
@@ -1228,7 +1293,16 @@ export const faqs: FaqItem[] = [
     status: "mock",
     relatedHref: "/motorcycles",
   },
-  { id: "faq-supercharge", question: { en: "What is WEDISON 15-Minute Supercharge?", id: "Apa itu WEDISON 15-Minute Supercharge?" }, answer: REQ_ANSWER, status: "required", relatedHref: "/supercharge" },
+  {
+    id: "faq-supercharge",
+    question: { en: "What is WEDISON 15-Minute Supercharge?", id: "Apa itu WEDISON 15-Minute Supercharge?" },
+    answer: {
+      en: "WEDISON SuperCharge is a DC fast-charging system that takes compatible WEDISON motorcycles from 10% to 80% in 15 minutes.",
+      id: "WEDISON SuperCharge adalah sistem pengisian cepat DC yang mengisi motor WEDISON yang kompatibel dari 10% ke 80% dalam 15 menit.",
+    },
+    status: "verified",
+    relatedHref: "/supercharge",
+  },
   { id: "faq-range", question: { en: "How far can a WEDISON electric motorcycle travel?", id: "Berapa jauh jarak tempuh motor listrik WEDISON?" }, answer: REQ_ANSWER, status: "required", relatedHref: "/compare" },
   { id: "faq-price", question: { en: "How much does a WEDISON electric motorcycle cost?", id: "Berapa harga motor listrik WEDISON?" }, answer: REQ_ANSWER, status: "required", relatedHref: "/motorcycles" },
   {
@@ -1241,8 +1315,11 @@ export const faqs: FaqItem[] = [
   {
     id: "faq-superchargers",
     question: { en: "Where are WEDISON Superchargers?", id: "Di mana lokasi WEDISON Supercharger?" },
-    answer: { en: "See the map on the Supercharger Network page.", id: "Lihat peta di halaman Jaringan Supercharger." },
-    status: "mock",
+    answer: {
+      en: "WEDISON states that SuperCharge is available at more than 100 strategic locations across Indonesia. Use the WEDISON app to find nearby stations and check live availability.",
+      id: "WEDISON menyatakan bahwa SuperCharge tersedia di lebih dari 100 lokasi strategis di Indonesia. Gunakan aplikasi WEDISON untuk menemukan stasiun terdekat dan memeriksa ketersediaan langsung.",
+    },
+    status: "verified",
     relatedHref: "/supercharger-network",
   },
   { id: "faq-battery-life", question: { en: "How long does a WEDISON battery last?", id: "Berapa lama umur baterai WEDISON?" }, answer: REQ_ANSWER, status: "required", relatedHref: "/battery" },

@@ -4,7 +4,7 @@ import StationBrowser from "@/components/StationBrowser";
 
 export const metadata: Metadata = {
   title: "Find a Supercharger | WEDISON",
-  description: "Search WEDISON Supercharger locations by city and status.",
+  description: "Find WEDISON SuperCharge stations and check real-time availability through the WEDISON app.",
 };
 
 export default function FindSuperchargerPage() {
@@ -13,7 +13,7 @@ export default function FindSuperchargerPage() {
       <PageHero
         eyebrow="Experience"
         title="Find a Supercharger"
-        intro="Filter by city and status, then open a location for power, hours and compatible models."
+        intro="The WEDISON app helps riders find nearby SuperCharge stations, check real-time availability and review queue status before setting off."
         visual="charger"
         primary={{ label: "Discover Supercharge", href: "/supercharge" }}
         secondary={{ label: "Network overview", href: "/supercharger-network" }}

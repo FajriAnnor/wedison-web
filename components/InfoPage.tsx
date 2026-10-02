@@ -6,12 +6,10 @@ import {
   businessSolutions,
   customerStories,
   faqs,
-  hasValue,
   ownershipPillars,
   superchargeClaim,
   techPillars,
   whyElectricPoints,
-  type DataPoint,
 } from "../lib/mockData";
 import type { SitePage } from "../lib/pages";
 import PageHero from "./PageHero";
@@ -53,16 +51,6 @@ const HERO_IMAGES: Partial<Record<string, { src: string; alt: string }>> = {
     src: "/images/wedison/showroom/showroom-reception.webp",
     alt: "WEDISON showroom reception",
   },
-};
-
-const CONDITION_LABEL: Record<string, string> = {
-  startBatteryPercent: "Starting battery %",
-  endBatteryPercent: "Ending battery % after 15 min",
-  chargerPowerKw: "Charger power (kW)",
-  batteryCapacityKwh: "Battery capacity tested (kWh)",
-  compatibleModelSlugs: "Compatible models",
-  ambientTemperature: "Temperature conditions",
-  testType: "Laboratory or real-world tested",
 };
 
 function Block({ children, tone = "default" }: { children: React.ReactNode; tone?: "default" | "soft" }) {
@@ -153,24 +141,52 @@ export default function InfoPage({ page }: { page: SitePage }) {
             <div>
               <SectionHeading
                 eyebrow={superchargeClaim.claimLabel}
-                title={superchargeClaim.headline[locale]}
-                body="The claim is shown with an asterisk everywhere, and will only be published with its full test conditions."
+                title="Fast charging, built around the ride."
+                body="WEDISON SuperCharge is a DC fast-charging system for compatible motorcycles, designed to make charging faster, safer and more practical."
               />
-              <table className="mt-8 w-full text-left text-sm">
-                <caption className="sr-only">Claim conditions</caption>
-                <tbody>
-                  {Object.entries(superchargeClaim.conditions).map(([key, dp]) => (
-                    <tr key={key} className="border-t border-black/10 dark:border-white/10">
-                      <th scope="row" className="py-3 pr-4 font-medium text-foreground/70">
-                        {CONDITION_LABEL[key] ?? key}
-                      </th>
-                      <td className="py-3 text-foreground/50">{hasValue(dp as DataPoint<unknown>) ? String(dp.value) : DATA_REQUIRED_LABEL}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <dl className="mt-8 grid grid-cols-3 gap-3">
+                <div className="rounded-2xl border border-black/10 p-4 dark:border-white/10">
+                  <dt className="text-xs uppercase tracking-wider text-foreground/50">Charge</dt>
+                  <dd className="mt-2 text-xl font-extrabold text-wedison-green">10% → 80%</dd>
+                </div>
+                <div className="rounded-2xl border border-black/10 p-4 dark:border-white/10">
+                  <dt className="text-xs uppercase tracking-wider text-foreground/50">Time</dt>
+                  <dd className="mt-2 text-xl font-extrabold text-wedison-green">15 min</dd>
+                </div>
+                <div className="rounded-2xl border border-black/10 p-4 dark:border-white/10">
+                  <dt className="text-xs uppercase tracking-wider text-foreground/50">Network</dt>
+                  <dd className="mt-2 text-xl font-extrabold text-wedison-green">100+</dd>
+                </div>
+              </dl>
             </div>
             <ChargingVisual />
+          </div>
+          <div className="mt-16">
+            <SectionHeading
+              eyebrow="SuperCharge app"
+              title="Find. Charge. Keep moving."
+              body="The WEDISON app connects station discovery, live availability and charging-session controls in one place."
+            />
+            <Cards
+              items={[
+                {
+                  title: "Find nearby stations",
+                  body: "Explore SuperCharge locations on an interactive map, filter by availability and distance, and save favourites.",
+                },
+                {
+                  title: "Plan before you leave",
+                  body: "Check real-time station availability, queue status and estimated wait times before setting off.",
+                },
+                {
+                  title: "Monitor every session",
+                  body: "Start charging from the app, follow progress in real time, and review session history and analytics.",
+                },
+                {
+                  title: "Engineered for safety",
+                  body: "WEDISON states that its DC stations are certified to IEC safety standards and comply with European Union directives.",
+                },
+              ]}
+            />
           </div>
         </Block>
       )}
